@@ -39,7 +39,7 @@ class WemoSkill(MycroftSkill):
             1: 'on',
         }[state]
 
-    @intent_handler(IntentBuilder("").require("Toggle").require('WemoSwitch'))
+    @intent_handler(IntentBuilder("").require("Toggle").require('WemoSwitch').require('Switch'))
     def handle_switch(self, message):
         name = message.data.get('WemoSwitch')
         method = message.data.get('Toggle')

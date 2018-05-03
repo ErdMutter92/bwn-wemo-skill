@@ -1,24 +1,20 @@
-To submit your skill, replace this file with text from 
-https://rawgit.com/MycroftAI/mycroft-skills/master/meta_editor.html
+## BWN Wemo Skill
+Mycroft skill to interact with Wemo devices
 
+## Description
+A Mycroft skill for finding, listing, and controlling wemo devices.
 
-## YOUR SKILL NAME
-One line description of the skill
+## Requirements
+* [ouimeaux](https://github.com/iancmcc/ouimeaux) - Open source control for Belkin WeMo devices
 
-eg. "Verbally control Pomodoro timing and activities"
-eg. "Verbally search and play Spotify tracks and playlists"
+## Examples
+* "turn on the kitchen light switch"
+* "turn off the christmas tree switch"
+* "toggle the bedroom light switch"
+* "search for wemo devices"
+* "discover wemo devices"
+* "list my wemo devices"
 
-It's better not to use "This Skill does xxxx" as it's not as readable. 
-
-## Description 
-A more verbose description, including any extra instructions or
-information that didn't fit in the one line.
-
-## Examples 
-* "Hello world"
-* "Greetings planet earth"
-* "Count up"
-* "Count down"
-
-## Credits 
-Your name
+## Credits
+idea based off of [martymulligan's work](https://github.com/martymulligan/skill-wemo)
+erdmutter92

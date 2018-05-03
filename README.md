@@ -16,5 +16,6 @@ A Mycroft skill for finding, listing, and controlling wemo devices.
 * "list my wemo devices"
 
 ## Credits
-idea based off of [martymulligan's work](https://github.com/martymulligan/skill-wemo)
+Idea based off of [martymulligan's work](https://github.com/martymulligan/skill-wemo)
+
 erdmutter92

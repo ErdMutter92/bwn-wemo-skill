@@ -1,13 +1,11 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
-from mycroft.util.log import LOG
 from ouimeaux.environment import Environment
 
-class WemoSkill(MycroftSkill):
+class AdvancedWemoSkill(MycroftSkill):
 
-    # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
-        super(WemoSkill, self).__init__(name="WemoSkill")
+        super(AdvancedWemoSkill, self).__init__(name="AdvancedWemoSkill")
 
     def initialize(self):
         self.wemo = Environment(self.on_switch, self.on_motion);
@@ -15,18 +13,18 @@ class WemoSkill(MycroftSkill):
         self.wemo.discover(seconds=3);
 
     def on_switch(self, switch):
-        self.register_vocabulary(switch.name, 'WemoSwitch');
+        self.register_vocabulary(switch.name, "WemoSwitch");
 
     def on_motion(self, motion):
-        self.register_vocabulary(switch.name, 'WemoMotion');
+        self.register_vocabulary(switch.name, "WemoMotion");
 
     def get_toggle_label(self, state):
         return {
-            0: 'off',
-            1: 'on',
+            0: "off",
+            1: "on",
         }[state]
 
-    @intent_handler(IntentBuilder("").require("Toggle").require('WemoSwitch').require('Switch'))
+    @intent_handler(IntentBuilder("").require("Toggle").require("WemoSwitch").require("Switch"))
     def handle_switch(self, message):
         name = message.data.get('WemoSwitch')
         method = message.data.get('Toggle')

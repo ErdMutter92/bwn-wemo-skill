@@ -24,6 +24,10 @@ class AdvancedWemoSkill(MycroftSkill):
             1: "on",
         }[state]
 
+    @intent_handler(IntentBuilder("").require('Schedule').require("Toggle").require("WemoSwitch").require("Switch"))
+    def handle_schedule(self, message):
+        self.speak('I am sorry, but I am afraid I can not do that')
+
     @intent_handler(IntentBuilder("").require("Toggle").require("WemoSwitch").require("Switch"))
     def handle_switch(self, message):
         name = message.data.get('WemoSwitch')

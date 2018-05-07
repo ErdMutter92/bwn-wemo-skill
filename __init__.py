@@ -40,7 +40,10 @@ class AdvancedWemoSkill(MycroftSkill):
         utterence = message.data.get('utterance')
         eventTime = extract_datetime(utterence)
         self.schedule_event(self.handle_switch, eventTime[0], data=message.data)
-        self.speak('Scheduled Event')
+
+        name = message.data.get('WemoSwitch')
+        device = self.wemo.get_switch(name)
+        self.speak_dialog('schedule.switch.toggle', data={"light": device.name, "toggle": method})
 
     @intent_handler(IntentBuilder("").require("Toggle").require("WemoSwitch").require("Switch"))
     def handle_switch(self, message):

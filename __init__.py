@@ -42,6 +42,7 @@ class AdvancedWemoSkill(MycroftSkill):
         self.schedule_event(self.handle_switch, eventTime[0], data=message.data)
 
         name = message.data.get('WemoSwitch')
+        method = message.data.get('Toggle')
         device = self.wemo.get_switch(name)
         self.speak_dialog('schedule.switch.toggle', data={"light": device.name, "toggle": method})
 

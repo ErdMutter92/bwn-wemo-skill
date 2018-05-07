@@ -1,5 +1,8 @@
 import os
+import time
+import datetime
 from adapt.intent import IntentBuilder
+from mycroft.util import extract_datetime
 from mycroft.skills.core import MycroftSkill, intent_handler
 from ouimeaux.environment import Environment
 
@@ -32,13 +35,12 @@ class AdvancedWemoSkill(MycroftSkill):
             1: "on",
         }[state]
 
-    def schedule_event(self):
-        self.speak('I am sorry, but I am afraid I can not do that')
-
     @intent_handler(IntentBuilder("").require('Schedule').require("Toggle").require("WemoSwitch").require("Switch"))
-    def handle_schedule(self, message):
-        eventTime = time.time() + 3
-        self.schedule_event(self.schedule_event, eventTime)
+    def handle_schedule_switch(self, message):
+        utterence = message.data.get('utterance')
+        eventTime = extract_datetime(utterence)
+        self.schedule_event(self.handle_switch, eventTime[0], data=message.data)
+        self.speak('Scheduled Event')
 
     @intent_handler(IntentBuilder("").require("Toggle").require("WemoSwitch").require("Switch"))
     def handle_switch(self, message):

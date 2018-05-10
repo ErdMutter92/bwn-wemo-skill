@@ -1,6 +1,17 @@
+import os
+import time
+import datetime
 from adapt.intent import IntentBuilder
+from mycroft.util import extract_datetime
 from mycroft.skills.core import MycroftSkill, intent_handler
 from ouimeaux.environment import Environment
+
+def timeTill(future):
+    current = datetime.datetime.now()
+    currentTime = time.mktime(current.timetuple()) + current.microsecond / 1E6
+    futureTime = time.mktime(future.timetuple()) + future.microsecond / 1E6
+
+    return futureTime - currentTime
 
 class AdvancedWemoSkill(MycroftSkill):
 
@@ -23,6 +34,17 @@ class AdvancedWemoSkill(MycroftSkill):
             0: "off",
             1: "on",
         }[state]
+
+    @intent_handler(IntentBuilder("").require('Schedule').require("Toggle").require("WemoSwitch").require("Switch"))
+    def handle_schedule_switch(self, message):
+        utterence = message.data.get('utterance')
+        eventTime = extract_datetime(utterence)
+        self.schedule_event(self.handle_switch, eventTime[0], data=message.data)
+
+        name = message.data.get('WemoSwitch')
+        method = message.data.get('Toggle')
+        device = self.wemo.get_switch(name)
+        self.speak_dialog('schedule.switch.toggle', data={"light": device.name, "toggle": method})
 
     @intent_handler(IntentBuilder("").require("Toggle").require("WemoSwitch").require("Switch"))
     def handle_switch(self, message):
